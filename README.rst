@@ -1,5 +1,5 @@
 ==========
-UpOut DateFormat Parse
+UpOut DateFormat Parser
 ==========
 
 About
