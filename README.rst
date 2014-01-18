@@ -52,14 +52,27 @@ Single
 	once starting <datetimestring> ending <datetimestring> in <timezone>
 
 Both starting and ending are inclusive
+
 If any of the <datetimestring> objects begins with _ then all _ in that object will be converted to spaces
+
 We tokenize based on spaces
 
-Example:
-every week on monday,tuesday at 9:00PM lasting 6 hours in America/Los_Angeles
+When moving times across the DST line, the exact time (e.g 5PM) is kept regardless of DST
 
-every month on last saturday,monday starting _October_1_2013 ending _April_1_2014 at 8:00PM lasting 2 hours in America/Los_Angeles
+If you want something on the 5th weekday of each month, ONLY months that have a 5th weekday will be returned. If you want the last weekday use 'last' instead
+
+
+Examples
+==========
+::
+	every week on monday,tuesday at 9:00PM lasting 6 hours in America/Los_Angeles
+
+::
+	every month on last saturday,monday starting _October_1_2013 ending _April_1_2014 at 8:00PM lasting 2 hours in America/Los_Angeles
 once starting _October_1_2013_5:00_PM ending _March_1_2014_5:00_PM in America/Los_Angeles
+
+::
+	once starting _October_1_2013_5:00PM ending _October_1_2013_9:30PM in America/Los_Angeles
 
 TODO
 ==========
