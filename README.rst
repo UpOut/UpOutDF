@@ -47,7 +47,7 @@ Recurring
 
 Single
 ::
-	once starting <datetimestring> ending <datetimestring> in America/Los_Angeles
+	once starting <datetimestring> ending <datetimestring> in <timezone>
 
 Both starting and ending are inclusive
 If any of the <datetimestring> objects begins with _ then all _ in that object will be converted to spaces
