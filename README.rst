@@ -40,12 +40,14 @@ Usage
 
 Format
 ==========
-
+Recurring
 ::
 
 	every (int) <year(s) (day <int>)| month(s) on <<1st,2nd,3rd,4th,5th,last> <m,t,w,tr,f,sa,s> | day <int>> | week(s) on <m,t,w,tr,f,sa,s> | day(s)> (starting <datetimestring>) (ending <datetimestring>) (repeating <int> times) at <timestamp> lasting <int> <hours,minutes,seconds> in <timezone>
 
-once starting <datetimestring> ending <datetimestring> in America/Los_Angeles
+Single
+::
+	once starting <datetimestring> ending <datetimestring> in America/Los_Angeles
 
 Both starting and ending are inclusive
 If any of the <datetimestring> objects begins with _ then all _ in that object will be converted to spaces
