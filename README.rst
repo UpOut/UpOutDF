@@ -65,17 +65,22 @@ If you want something on the 5th weekday of each month, ONLY months that have a 
 Examples
 ==========
 ::
+
 	every week on monday,tuesday at 9:00PM lasting 6 hours in America/Los_Angeles
 
 ::
+
 	every month on last saturday,monday starting _October_1_2013 ending _April_1_2014 at 8:00PM lasting 2 hours in America/Los_Angeles
 once starting _October_1_2013_5:00_PM ending _March_1_2014_5:00_PM in America/Los_Angeles
 
 ::
+
 	once starting _October_1_2013_5:00PM ending _October_1_2013_9:30PM in America/Los_Angeles
 
 TODO
 ==========
 Better format documentation
+
 Unit tests
+
 Cleanup classes
