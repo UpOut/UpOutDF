@@ -6,7 +6,9 @@ About
 ==========
 
 This is a parser for the UpOut DateFormat. This format is designed to be easily readable by python humans and machines.
+
 You can see more details about the format below.
+
 
 While this library is ready for use, it needs to be cleaned up quite a bit. We also need better format documentation and unit tests
 
