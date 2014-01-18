@@ -13,26 +13,28 @@ While this library is ready for use, it needs to be cleaned up quite a bit. We a
 
 Usage
 ==========
-from upoutdf.parse import get_class
+::
 
-container = get_class("upout dateformat string")
+	from upoutdf.parse import get_class
 
-#Will return True/False to denote any issues
-#Not required to get occurences
-container.verify()
+	container = get_class("upout dateformat string")
 
-#Will raise an exception if there is a problem, ValueError or RuntimeError
-#Will return False if there was an unknown issue
-#MUST be called before .occurences() below
-container.parse()
+	#Will return True/False to denote any issues
+	#Not required to get occurences
+	container.verify()
 
-#Will get a list of upoutdf.occurences.OccurenceBlock objects
-occurences = container.occurences()
+	#Will raise an exception if there is a problem, ValueError or RuntimeError
+	#Will return False if there was an unknown issue
+	#MUST be called before .occurences() below
+	container.parse()
 
-for block in ocurrences:
-	#Will get list of UTC datetime tuples, including the start and end of each occurence
-	#Can also use get_localized_occurences to get the occurences localized to the timezone
-	for start,end in occurences.get_occurences()
+	#Will get a list of upoutdf.occurences.OccurenceBlock objects
+	occurences = container.occurences()
+
+	for block in ocurrences:
+		#Will get list of UTC datetime tuples, including the start and end of each occurence
+		#Can also use get_localized_occurences to get the occurences localized to the timezone
+		for start,end in occurences.get_occurences()
 
 	
 
