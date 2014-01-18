@@ -71,7 +71,6 @@ Examples
 ::
 
 	every month on last saturday,monday starting _October_1_2013 ending _April_1_2014 at 8:00PM lasting 2 hours in America/Los_Angeles
-once starting _October_1_2013_5:00_PM ending _March_1_2014_5:00_PM in America/Los_Angeles
 
 ::
 
