@@ -4,7 +4,7 @@ import pytz
 from dateutil.relativedelta import relativedelta
 
 from .base import BaseRecurring
-from upoutdf.occurences import OccurenceBlock
+from upoutdf.occurences import OccurenceBlock, OccurenceGroup
 from upoutdf.constants import YEARLY_TYPE
 
 class YearlyType(BaseRecurring):
@@ -85,8 +85,8 @@ class YearlyType(BaseRecurring):
 
         occurence_block.ending_date = occurence_end
 
-        #We always return a list, even if just 1
-        return [occurence_block]
+        #We always return a OccurenceGroup, even if just 1
+        return OccurenceGroup(blocks=[occurence_block])
 
 
     def _parse_type(self,tokens):

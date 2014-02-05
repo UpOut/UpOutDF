@@ -1,8 +1,8 @@
 from upoutdf.parse import get_class
 
 
-#test = "every week on monday,tuesday at 9:00PM lasting 6 hours in America/Los_Angeles"
-test = "once starting _October_1_2013_5:00PM ending _October_1_2013_9:30PM in America/Los_Angeles"
+test = "every weeks on tuesday,monday at 9:00PM lasting 6 hours in America/Los_Angeles"
+#test = "once starting _October_1_2013_5:00PM ending _October_1_2013_9:30PM in America/Los_Angeles"
 z = get_class(test)
 
 def localize(time,timezone):
@@ -12,18 +12,18 @@ print z.verify()
 z.parse()
 
 
-#z.occurences()
 
-print "FROM HERE"
-for block in z.occurences():
-    print block
-    for start,end in block.get_occurences():
 
-        print localize(start,z.timezone)
-        print localize(end,z.timezone)
-        print "\n"
+print z.occurences().__hash__()
 
-    print "\n\n"
+#print "FROM HERE"
+#for block in z.occurences().get_blocks():
+#    print block.__hash__()
+#    for o in block.get_occurences():
+ #       pass
+        #print o.__hash__()
+
+  #  print "\n\n"
     #start = localize(start,z.timezone)
     #end = localize(end,z.timezone)
     #print start

@@ -4,7 +4,7 @@ import pytz
 from dateutil.relativedelta import relativedelta
 
 from upoutdf import dow
-from upoutdf.occurences import OccurenceBlock
+from upoutdf.occurences import OccurenceBlock, OccurenceGroup
 from .base import BaseRecurring
 from upoutdf.constants import WEEKLY_TYPE
 
@@ -82,7 +82,7 @@ class WeeklyType(BaseRecurring):
             occurence_block.ending_date = occurence_end
             occurence_blocks.append(occurence_block)
 
-        return occurence_blocks
+        return OccurenceGroup(blocks=occurence_blocks)
 
     def _parse_type(self,tokens):
 

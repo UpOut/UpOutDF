@@ -7,9 +7,12 @@ from dateutil import parser
 from dateutil.relativedelta import relativedelta
 
 from upoutdf.snapping import SnapLogical
+from ..base import BaseType
 
-class BaseRecurring(object):
+class BaseRecurring(BaseType):
 
+    original_string = None
+    
     type = None
     required_attributes = []
 
@@ -29,10 +32,12 @@ class BaseRecurring(object):
     lasting_seconds = None
     starting_time = None
 
-    def __init__(self,tokens,every,
+    def __init__(self,original_string,tokens,every,
             date_parse=None,
             default_ending_interval=None,
             snapping_class=None):
+
+        self.original_string = original_string
         self.tokens = tokens
         self.every = every
 

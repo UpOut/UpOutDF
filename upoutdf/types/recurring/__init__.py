@@ -2,6 +2,7 @@
 
 from upoutdf import constants
 
+from .base import BaseRecurring
 from .daily import DailyType
 from .weekly import WeeklyType
 from .monthly import MonthlyType

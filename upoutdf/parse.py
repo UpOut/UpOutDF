@@ -24,6 +24,7 @@ def get_class(toparse,
         tokens = tokens[1:]
 
         return type_class(
+            original_string=toparse,
             tokens=tokens,
             every=every_int,
             date_parse=date_parsing_function
@@ -34,6 +35,7 @@ def get_class(toparse,
         tokens=tokens[1:]
         
         return SingleType(
+            original_string=toparse,
             tokens=tokens,
             date_parse=date_parsing_function
         )

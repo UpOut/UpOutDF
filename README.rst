@@ -30,7 +30,7 @@ Usage
 	#MUST be called before .occurences() below
 	container.parse()
 
-	#Will get a list of upoutdf.occurences.OccurenceBlock objects
+	#Will get a OccurenceGroup object which contains all of the OccurenceBlocks, which hold all the Occurences, which hold start/end datetime tuples
 	occurences = container.occurences()
 
 	for block in ocurrences:

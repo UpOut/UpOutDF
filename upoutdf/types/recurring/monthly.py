@@ -5,7 +5,7 @@ from dateutil.relativedelta import relativedelta
 
 from upoutdf import dow
 from .base import BaseRecurring
-from upoutdf.occurences import OccurenceBlock
+from upoutdf.occurences import OccurenceBlock, OccurenceGroup
 from upoutdf.constants import MONTHLY_MONTHDAY_TYPE, MONTHLY_WEEKDAY_TYPE
 
 class MonthlyType(BaseRecurring):
@@ -118,7 +118,7 @@ class MonthlyType(BaseRecurring):
             occurence_block.ending_date = occurence_end
             occurence_blocks.append(occurence_block)
 
-        return occurence_blocks
+        return OccurenceGroup(blocks=occurence_blocks)
 
 
     def _monthday_occurences(self):
@@ -167,8 +167,8 @@ class MonthlyType(BaseRecurring):
 
         occurence_block.ending_date = occurence_end
 
-        #We always return a list, even if just 1
-        return [occurence_block]
+        #We always return a OccurenceGroup, even if just 1
+        return OccurenceGroup(blocks=[occurence_block])
 
 
 

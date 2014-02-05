@@ -1,6 +1,10 @@
 # coding: utf-8
 
-import calendar
+from hashlib import md5
+from calendar import timegm
+
+from .single import Occurence
+from upoutdf.duration import Duration
 
 class OccurenceBlock(object):
 
@@ -43,6 +47,30 @@ class OccurenceBlock(object):
         self.timezone = typeobj.timezone
         self.type = typeobj.type
 
+
+    def __hash__(self):
+        list = []
+
+        for o in self._occurences:
+            #occurence hash returns md5, which is case insensitive
+            list.append(o.__hash__())
+
+        #lexicographical sorting
+        h = " ".join(sorted(list, key=str.lower))
+        h = "%s %s" % (h,self.timezone.zone)
+
+        return md5(h).hexdigest()
+
+    def __eq__(self, other):
+        if not isinstance(other, self.__class__):
+            return False
+
+        return self.__hash__() == other.__hash__() 
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
+
     @property
     def localized_starting_date(self):
         if self.timezone is None or self.starting_date is None:
@@ -64,28 +92,26 @@ class OccurenceBlock(object):
     @property
     def unix_starting_date(self):
         #UTC
-        return calendar.timegm(self.starting_date.utctimetuple())
+        return timegm(self.starting_date.utctimetuple())
 
     @property
     def unix_ending_date(self):
         #UTC
-        return calendar.timegm(self.ending_date.utctimetuple())
+        return timegm(self.ending_date.utctimetuple())
 
     def get_occurences(self):
         #DO NOT CONVERT TO GENERATOR
         return self._occurences
 
-    def get_localized_occurences(self):
-        #DO NOT CONVERT TO GENERATOR
-        localized = []
-
-        for start,end in self._occurences:
-            l_start = self.timezone.normalize(start.astimezone(self.timezone))
-            l_end = self.timezone.normalize(end.astimezone(self.timezone))
-            localized.append((l_start,l_end))
-
-        return localized
-
-
     def add_occurence(self,start,end):
-        self._occurences.append((start,end))
+        self._occurences.append(Occurence(
+            start=start,
+            end=end,
+            timezone=self.timezone
+        ))
+
+    def get_duration(self):
+        return Duration(
+            start = self.unix_starting_date,
+            end = self.unix_ending_date
+        )

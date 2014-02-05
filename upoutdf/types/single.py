@@ -3,10 +3,15 @@
 import pytz
 from dateutil import parser
 
+from .base import BaseType
 from upoutdf.constants import SINGLE_TYPE
-from upoutdf.occurences import OccurenceBlock
+from upoutdf.occurences import OccurenceBlock, OccurenceGroup
 
-class SingleType(object):
+class SingleType(BaseType):
+    
+    every = 1
+
+    original_string = None
     
     timezone = None
 
@@ -17,10 +22,11 @@ class SingleType(object):
     starting_date = None
     ending_date = None
 
-    def __init__(self,tokens,date_parse=None):
+    def __init__(self,original_string,tokens,date_parse=None):
         if date_parse is None:
             date_parse = parser.parse
 
+        self.original_string = original_string
         self.tokens = tokens
         self.date_parse = date_parse
 
@@ -47,8 +53,8 @@ class SingleType(object):
         )
         occurence.add_occurence(self.starting_date,self.ending_date)
 
-        #We ALWAYS must return a list
-        return [occurence]
+        #We ALWAYS must return a OccurenceGroup
+        return OccurenceGroup(blocks=[occurence])
 
     def parse(self):
 
