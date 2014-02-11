@@ -171,6 +171,10 @@ class BaseRecurring(BaseType):
 
         tokens = self._step_tokens(tokens)
 
+        #if first character underscore, treat all underscores as spaces
+        if tokens[0][0] == '_':
+            tokens[0] = tokens[0].replace("_"," ").strip()
+
         #Get time
         try:
             time = self.date_parse(tokens[0])
