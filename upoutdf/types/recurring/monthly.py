@@ -34,6 +34,75 @@ class MonthlyType(BaseRecurring):
         snapper = self.snapping_class(self.timezone)
         return snapper.snap_to_month_day(datetime,monthday)
 
+    #_MM/dd/yyyy_h:mm_a
+    def canonicalize(self):
+        
+        canonical = "every %s month" % self.every
+
+        if self.type == MONTHLY_MONTHDAY_TYPE:
+            canonical = "%s day %s" % (
+                canonical,
+                self.month_day
+            )
+
+        elif self.type == MONTHLY_WEEKDAY_TYPE:
+            canonical = "%s on" % canonical
+
+            if self.month_weekday_last:
+                canonical = "%s last" % canonical
+            else:
+
+                if self.month_weekday_number == 1:
+                    weekday = "1st"
+                elif self.month_weekday_number == 2:
+                    weekday = "2nd"
+                elif self.month_weekday_number == 3:
+                    weekday = "3rd"
+                else:
+                    weekday = "%sth" % self.month_weekday_number
+
+                canonical = "%s %s" % (canonical,weekday)
+
+            dows = []
+            for d in self.month_weekdays:
+                dows.append(dow.DOWS[d])
+
+            dows = ",".join(dows)
+
+            canonical = "%s %s" % (canonical,dows)
+
+        if not self.starting_date_infinite:
+            canonical = "%s starting %s" % (
+                canonical,
+                self.starting_date.strftime("_%m/%d/%Y")
+            )
+
+        if not self.ending_date_infinite:
+            canonical = "%s ending %s" % (
+                canonical,
+                self.ending_date.strftime("_%m/%d/%Y")
+            )
+
+        if self.repeating_count is not None:
+            canonical = "%s repeating %s times" % (
+                canonical,
+                self.repeating_count
+            )
+
+        starting_time = self.timezone.normalize(self.starting_time.astimezone(self.timezone))
+        canonical = "%s at %s" % (
+            canonical,
+            starting_time.strftime("%-I:%M%p")
+        )
+        
+        canonical = "%s lasting %s seconds in %s" % (
+            canonical,
+            self.lasting_seconds,
+            str(self.timezone)
+        )
+
+        return canonical
+
     #Snap to month weekday (1st,2nd,3rd,4th,5th,last) (m,t,w,tr,f,sa,s)
     def _snap_weekday_ordinal_datetime(self,datetime,dow,ordinal):
         if datetime is None:

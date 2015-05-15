@@ -29,6 +29,50 @@ class YearlyType(BaseRecurring):
         snapper = self.snapping_class(self.timezone)
         return snapper.snap_to_year_day(datetime,yearday)
 
+    def canonicalize(self):
+
+        canonical = "every %s year" % self.every
+        
+        if self.year_day is not None:
+            canonical = "%s day %s" % (
+                canonical,
+                self.year_day
+            )
+        
+        #(starting <datetimestring>) (ending <datetimestring>)
+
+        if not self.starting_date_infinite:
+            canonical = "%s starting %s" % (
+                canonical,
+                self.starting_date.strftime("_%m/%d/%Y")
+            )
+
+        if not self.ending_date_infinite:
+            canonical = "%s ending %s" % (
+                canonical,
+                self.ending_date.strftime("_%m/%d/%Y")
+            )
+
+        if self.repeating_count is not None:
+            canonical = "%s repeating %s times" % (
+                canonical,
+                self.repeating_count
+            )
+
+        starting_time = self.timezone.normalize(self.starting_time.astimezone(self.timezone))
+        canonical = "%s at %s" % (
+            canonical,
+            starting_time.strftime("%-I:%M%p")
+        )
+        
+        canonical = "%s lasting %s seconds in %s" % (
+            canonical,
+            self.lasting_seconds,
+            str(self.timezone)
+        )
+
+        return canonical
+
     def occurences(self):
         if not self.verify_parsed():
             raise RuntimeError("Please call parse before calling occurences")

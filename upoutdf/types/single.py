@@ -43,6 +43,14 @@ class SingleType(BaseType):
         tokens = tokens[1:]
         return tokens
 
+    #_MM/dd/yyyy_h:mm_a
+    def canonicalize(self):
+        return "once starting %s ending %s in %s" % (
+            self.starting_date.strftime("_%m/%d/%Y_%I:%M_%p"),
+            self.ending_date.strftime("_%m/%d/%Y_%I:%M_%p"),
+            str(self.timezone)
+        )
+
     def occurences(self):
         occurence = OccurenceBlock(
             starting_date=self.starting_date,
