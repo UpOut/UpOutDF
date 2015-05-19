@@ -5,7 +5,7 @@ from upoutdf.parse import get_class
 #test = "every month day 4 starting _October_1_2013 ending _April_1_2014 at 8:00PM lasting 2 hours in America/Los_Angeles"
 
 #test = "every weeks on tuesday,monday at 9:00PM lasting 6 hours in America/Los_Angeles"
-test = "once starting _October_1_2013_5:00PM ending _October_1_2013_9:30PM in America/Los_Angeles"
+test = "once starting _05/23/2015_08:00_PM ending _05/23/2015_11:00_PM in US/Pacific"
 z = get_class(test)
 
 def localize(time,timezone):

@@ -45,9 +45,11 @@ class SingleType(BaseType):
 
     #_MM/dd/yyyy_h:mm_a
     def canonicalize(self):
+        starting_date = self.timezone.normalize(self.starting_date.astimezone(self.timezone))
+        ending_date = self.timezone.normalize(self.ending_date.astimezone(self.timezone))
         return "once starting %s ending %s in %s" % (
-            self.starting_date.strftime("_%m/%d/%Y_%I:%M_%p"),
-            self.ending_date.strftime("_%m/%d/%Y_%I:%M_%p"),
+            starting_date.strftime("_%m/%d/%Y_%I:%M_%p"),
+            ending_date.strftime("_%m/%d/%Y_%I:%M_%p"),
             str(self.timezone)
         )
 

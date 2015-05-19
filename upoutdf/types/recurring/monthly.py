@@ -72,15 +72,17 @@ class MonthlyType(BaseRecurring):
             canonical = "%s %s" % (canonical,dows)
 
         if not self.starting_date_infinite:
+            starting_date = self.timezone.normalize(self.starting_date.astimezone(self.timezone))
             canonical = "%s starting %s" % (
                 canonical,
-                self.starting_date.strftime("_%m/%d/%Y")
+                starting_date.strftime("_%m/%d/%Y")
             )
 
         if not self.ending_date_infinite:
+            ending_date = self.timezone.normalize(self.ending_date.astimezone(self.timezone))
             canonical = "%s ending %s" % (
                 canonical,
-                self.ending_date.strftime("_%m/%d/%Y")
+                ending_date.strftime("_%m/%d/%Y")
             )
 
         if self.repeating_count is not None:
