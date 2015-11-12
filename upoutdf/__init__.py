@@ -1,6 +1,6 @@
 # coding: utf-8
 
-__version__ = "0.6"
+__version__ = "0.7"
 
 """
 This module uses the Gregorian calendar (over ISO8601) for all calculations.

@@ -34,6 +34,15 @@ class MonthlyType(BaseRecurring):
         snapper = self.snapping_class(self.timezone)
         return snapper.snap_to_month_day(datetime,monthday)
 
+    def _canonicalize_date(self,date):
+        if not date.tzinfo:
+            date = date.replace(tzinfo=pytz.utc)
+
+        if date.tzinfo != self.timezone:
+            date = self.timezone.normalize(date.astimezone(self.timezone))
+
+        return date
+
     #_MM/dd/yyyy_h:mm_a
     def canonicalize(self):
         
@@ -72,14 +81,14 @@ class MonthlyType(BaseRecurring):
             canonical = "%s %s" % (canonical,dows)
 
         if not self.starting_date_infinite:
-            starting_date = self.timezone.normalize(self.starting_date.astimezone(self.timezone))
+            starting_date = self._canonicalize_date(self.starting_date)
             canonical = "%s starting %s" % (
                 canonical,
                 starting_date.strftime("_%m/%d/%Y")
             )
 
         if not self.ending_date_infinite:
-            ending_date = self.timezone.normalize(self.ending_date.astimezone(self.timezone))
+            ending_date = self._canonicalize_date(self.ending_date)
             canonical = "%s ending %s" % (
                 canonical,
                 ending_date.strftime("_%m/%d/%Y")
@@ -91,7 +100,7 @@ class MonthlyType(BaseRecurring):
                 self.repeating_count
             )
 
-        starting_time = self.timezone.normalize(self.starting_time.astimezone(self.timezone))
+        starting_time = self._canonicalize_date(self.starting_time)
         canonical = "%s at %s" % (
             canonical,
             starting_time.strftime("%-I:%M%p")

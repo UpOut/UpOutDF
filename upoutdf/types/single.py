@@ -43,10 +43,19 @@ class SingleType(BaseType):
         tokens = tokens[1:]
         return tokens
 
+    def _canonicalize_date(self,date):
+        if not date.tzinfo:
+            date = date.replace(tzinfo=pytz.utc)
+
+        if date.tzinfo != self.timezone:
+            date = self.timezone.normalize(date.astimezone(self.timezone))
+
+        return date
+
     #_MM/dd/yyyy_h:mm_a
     def canonicalize(self):
-        starting_date = self.timezone.normalize(self.starting_date.astimezone(self.timezone))
-        ending_date = self.timezone.normalize(self.ending_date.astimezone(self.timezone))
+        starting_date = self._canonicalize_date(self.starting_date)
+        ending_date = self._canonicalize_date(self.ending_date)
         return "once starting %s ending %s in %s" % (
             starting_date.strftime("_%m/%d/%Y_%I:%M_%p"),
             ending_date.strftime("_%m/%d/%Y_%I:%M_%p"),
